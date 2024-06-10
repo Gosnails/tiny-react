@@ -11,6 +11,8 @@ export default function createDOMElement(virtualDOM) {
         updateNodeElement(newElement, virtualDOM)
     }
 
+    newElement._virtualDOM = virtualDOM;
+
     virtualDOM.children.forEach(child => {
         mountElement(child, newElement)
     });
