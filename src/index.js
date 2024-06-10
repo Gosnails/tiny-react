@@ -19,4 +19,13 @@ const virtualDom = (
         <input type="text" value="13" />
     </div>
 )
-TinyReact.render(virtualDom, root)
+// TinyReact.render(virtualDom, root)
+
+function Demo() {
+    return <div>hello</div>
+}
+
+function Heart() {
+    return <div>&hearts; <Demo /></div>
+}
+TinyReact.render(<Heart />, root)

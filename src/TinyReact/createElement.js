@@ -7,7 +7,6 @@ export default function createElement(type, props, ...children) {
 				result.push(createElement("text", { textContent: child }));
 			}
 		}
-		console.log(result);
 		return result;
 	}, []);
 	return {
