@@ -64,6 +64,15 @@ class Alert extends TinyReact.Component {
             title: "Changle title"
         })
     }
+    componentWillReceiveProps(nextProps) {
+        console.log(nextProps);
+    }
+    componentWillUpdate() {
+        console.log('componentWillUpdate');
+    }
+    componentDidUpdate() {
+        console.log("componentDidUpdate");
+    }
     render() {
         console.log(this.state);
         return <div>
@@ -77,6 +86,6 @@ class Alert extends TinyReact.Component {
 TinyReact.render(<Alert title="Hello React" />, root)
 
 setTimeout(() => {
-    // TinyReact.render(<Alert title="Hello React!!!" />, root)
-    TinyReact.render(<Heart title="Hello React!!!" />, root)
+    TinyReact.render(<Alert title="Hello React!!!" />, root)
+    // TinyReact.render(<Heart title="Hello React!!!" />, root)
 }, 2000);
