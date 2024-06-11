@@ -75,3 +75,8 @@ class Alert extends TinyReact.Component {
 }
 
 TinyReact.render(<Alert title="Hello React" />, root)
+
+setTimeout(() => {
+    // TinyReact.render(<Alert title="Hello React!!!" />, root)
+    TinyReact.render(<Heart title="Hello React!!!" />, root)
+}, 2000);
