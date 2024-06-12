@@ -63,6 +63,7 @@ class Alert extends TinyReact.Component {
         this.setState({
             title: "Changle title"
         })
+        console.log(this.input.value);
     }
     componentWillReceiveProps(nextProps) {
         console.log(nextProps);
@@ -74,18 +75,35 @@ class Alert extends TinyReact.Component {
         console.log("componentDidUpdate");
     }
     render() {
-        console.log(this.state);
         return <div>
             {this.props.title}
             <div>{this.state.title}</div>
+            <input type="text" ref={input => (this.input = input)} />
             <button onClick={this.handleClick}>改变Title</button>
         </div>
     }
 }
 
-TinyReact.render(<Alert title="Hello React" />, root)
+class DemoC extends TinyReact.Component {
+    constructor(props) {
+        super(props)
+        this.handleClick = this.handleClick.bind(this)
+    }
+    handleClick() {
+        console.log(this.input.value);
+        console.log(this.alert);
+    }
+    componentDidMount() {
+        console.log('componentDidMount');
+    }
+    
+    render() {
+        return <div>
+            <input type="text" ref={input => (this.input = input)} />
+            <button onClick={this.handleClick}>点击</button>
+            <Alert ref={alert => this.alert = alert} title="22222" />
+        </div>
+    }
+}
 
-setTimeout(() => {
-    TinyReact.render(<Alert title="Hello React!!!" />, root)
-    // TinyReact.render(<Heart title="Hello React!!!" />, root)
-}, 2000);
+TinyReact.render(<DemoC title="Hello React" />, root)
