@@ -21,9 +21,38 @@ export default function diff(virtualDOM, container, oldDOM) {
 		} else {
 			updateNodeElement(oldDOM, virtualDOM, oldVirtualDOM);
 		}
-		virtualDOM.children.forEach((child, i) => {
-			diff(child, oldDOM, oldDOM.childNodes[i]);
-		});
+		let keydElements = {}
+
+		for(let i = 0; i < oldDOM.childNodes.length; i++) {
+			let domElement = oldDOM.childNodes[i];
+			if (domElement.nodeType === 1) {
+				let key = domElement.getAttribute("key");
+				if (key) {
+					keydElements[key] = domElement;
+				}
+			}
+		}
+
+		let hasNoKey = Object.keys(keydElements).length === 0;
+		if (hasNoKey) {
+			virtualDOM.children.forEach((child, i) => {
+				diff(child, oldDOM, oldDOM.childNodes[i]);
+			});
+		} else {
+			virtualDOM.children.forEach((child, i) => {
+				let key = child.props.key;
+				if (key) {
+					let domElement = keydElements[key];
+					if (domElement) {
+						if (oldDOM.childNodes[i] && oldDOM.childNodes[i] !==domElement){
+							oldDOM.insertBefore(domElement, oldDOM.childNodes[i])
+						}
+					} else {
+						mountElement(child, oldDOM, oldDOM.childNodes[i])
+					}
+				}
+			})
+		}
 
 		let oldChildNodes = oldDOM.childNodes;
 		if (oldChildNodes.length > virtualDOM.children.length) {
